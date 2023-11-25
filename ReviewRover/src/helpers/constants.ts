@@ -1,4 +1,4 @@
-export const BASE_API_URL = 'http://dev-35/reviewapi';
+export const BASE_API_URL = 'http://localhost:8080';
 
 export const ENDPOINTS = {
   LOGIN: BASE_API_URL + '/api/auth/signin',
