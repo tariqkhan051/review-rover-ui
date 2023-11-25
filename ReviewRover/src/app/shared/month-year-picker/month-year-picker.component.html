@@ -1,0 +1,18 @@
+<mat-form-field appearance="outline">
+  <mat-label>Month and Year</mat-label>
+  <input
+    matInput
+    [matDatepicker]="picker"
+    [min]="minDate"
+    placeholder="Month & Year"
+    [ngModel]="selectedDate"
+  />
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker
+    color="primary"
+    #picker
+    startView="year"
+    [startAt]="startDate"
+    (monthSelected)="dateChanged($event, picker)"
+  ></mat-datepicker>
+</mat-form-field>

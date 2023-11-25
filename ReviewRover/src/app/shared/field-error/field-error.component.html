@@ -1,0 +1,33 @@
+<mat-error
+  style="margin-top: -1.25em"
+  *ngIf="control && control.errors && (control.dirty || control.touched)"
+>
+  <span class="material-icons" style="vertical-align: middle">
+    error_outline </span
+  ><span class="mr-1"></span>
+  <small *ngIf="control.errors?.[ERROR_KEYS.REQUIRED]">{{
+    customErrorMessage?.[ERROR_KEYS.REQUIRED] ?? controlName + ' ' + errorMsgs.REQUIRED
+  }}</small>
+  <small *ngIf="control.errors?.[ERROR_KEYS.MAX_LENGTH]">{{
+    customErrorMessage?.[ERROR_KEYS.MAX_LENGTH] ?? controlName + ' ' + errorMsgs.MAX_LENGTH
+  }}</small>
+  <small *ngIf="control.errors?.[ERROR_KEYS.MIN_LENGTH]">{{
+    customErrorMessage?.[ERROR_KEYS.MIN_LENGTH] ?? controlName + ' ' + errorMsgs.MIN_LENGTH
+  }}</small>
+  <small *ngIf="control.errors?.[ERROR_KEYS.PATTERN]">{{
+    customErrorMessage?.[ERROR_KEYS.PATTERN] ?? lowercaseControlName === 'username'
+      ? errorMsgs.USERNAME_REGEX
+      : lowercaseControlName === 'password'
+      ? errorMsgs.PASSWORD_TOOLTIP
+      : controlName + ' ' + errorMsgs.REGEX
+  }}</small>
+  <small *ngIf="control.errors?.[ERROR_KEYS.RESTRICTED_WORDS]">{{
+    customErrorMessage?.[ERROR_KEYS.RESTRICTED_WORDS] ?? errorMsgs.RESTRICTED_WORDS
+  }}</small>
+  <small *ngIf="control.errors?.[ERROR_KEYS.EMAIL]">{{
+    customErrorMessage?.[ERROR_KEYS.EMAIL] ?? errorMsgs.INVALID_EMAIL
+  }}</small>
+  <small *ngIf="control.errors?.[ERROR_KEYS.WHITE_SPACES]">{{
+    customErrorMessage?.[ERROR_KEYS.WHITE_SPACES] ?? errorMsgs.WHITE_SPACES
+  }}</small>
+</mat-error>

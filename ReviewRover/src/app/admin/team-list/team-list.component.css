@@ -1,0 +1,12 @@
+.mat-column-name {
+  width: 45%;
+}
+
+.mat-column-department_name {
+  width: 40%;
+}
+
+.mat-column-actions {
+  justify-content: center;
+  width: 15%;
+}

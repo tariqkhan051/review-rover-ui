@@ -1,0 +1,294 @@
+/* You can add global styles to this file, and also import other style files */
+@use '@angular/material' as mat;
+@use './side-nav-theme.scss' as sideNav;
+@import 'https://fonts.googleapis.com/icon?family=Material+Icons';
+
+@include mat.core();
+
+$md-myprimary: (
+  50: #e1e7ed,
+  100: #b4c2d3,
+  200: #8299b6,
+  300: #4f7099,
+  400: #2a5283,
+  500: #04336d,
+  600: #032e65,
+  700: #03275a,
+  800: #022050,
+  900: #01143e,
+  A100: #7492ff,
+  A200: #416aff,
+  A400: #0e42ff,
+  A700: #0035f3,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #ffffff,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #ffffff,
+    A400: #ffffff,
+    A700: #ffffff
+  )
+);
+
+$md-mysecondary: (
+  50: #ffe2e2,
+  100: #ffb8b7,
+  200: #ff8887,
+  300: #ff5856,
+  400: #ff3532,
+  500: #ff110e,
+  600: #ff0f0c,
+  700: #ff0c0a,
+  800: #ff0a08,
+  900: #ff0504,
+  A100: #ffffff,
+  A200: #fff2f2,
+  A400: #ffc0bf,
+  A700: #ffa6a6,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #ffffff,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+
+$md-myaccent: (
+  50: #ebf1e6,
+  100: #ccdcc1,
+  200: #aac597,
+  300: #88ae6d,
+  400: #6f9c4e,
+  500: #558b2f,
+  600: #4e832a,
+  700: #447823,
+  800: #3b6e1d,
+  900: #2a5b12,
+  A100: #b3ff93,
+  A200: #8fff60,
+  A400: #6cff2d,
+  A700: #5aff14,
+  contrast: (
+    50: #000000,
+    100: #000000,
+    200: #000000,
+    300: #000000,
+    400: #000000,
+    500: #ffffff,
+    600: #ffffff,
+    700: #ffffff,
+    800: #ffffff,
+    900: #ffffff,
+    A100: #000000,
+    A200: #000000,
+    A400: #000000,
+    A700: #000000
+  )
+);
+
+$my-primary: mat.define-palette($md-myprimary, 500, 400, 900);
+$my-accent: mat.define-palette($md-myaccent, 500);
+$my-warn: mat.define-palette($md-mysecondary, 500);
+
+$my-light-theme: mat.define-light-theme(
+  (
+    color: (
+      primary: $my-primary,
+      accent: $my-accent,
+      warn: $my-warn
+    )
+  )
+);
+
+@include mat.all-component-themes($my-light-theme);
+@include sideNav.color($my-light-theme);
+
+* {
+  font-family: Manrope, sans-serif !important;
+}
+
+.material-icons {
+  font-family: 'Material Icons' !important;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  font-family: Manrope, sans-serif;
+}
+
+.right {
+  float: right;
+}
+
+.card-content {
+  padding: 2%;
+}
+
+.mat-card {
+  width: 90%;
+  @include mat.elevation(5);
+}
+
+.full-width {
+  width: 100% !important;
+}
+
+.menu-sidenav {
+  padding: 20px;
+  margin-top: 4%;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.row {
+  display: flex;
+}
+
+.col {
+  flex: 1;
+}
+
+.full-height {
+  height: 100%;
+}
+
+.force-full-height {
+  min-height: 100vh;
+}
+
+.sidenav-list span {
+  padding-left: 8px;
+  padding-right: 8px;
+  font-size: 0.875rem;
+}
+
+a .nav-icon {
+  vertical-align: middle;
+}
+
+.is-active {
+  background-color: rgba(158, 158, 158, 0.3);
+}
+
+.align-text-center {
+  text-align: center;
+}
+
+.tblHeader {
+  font-weight: bold;
+}
+
+.tblHeaderCenter {
+  font-weight: bold;
+  justify-content: center;
+}
+
+.elevated-mat-card {
+  @include mat.elevation(3);
+}
+
+button {
+  outline: none !important;
+}
+
+tr:hover {
+  background-color: rgba(158, 158, 158, 0.3);
+}
+
+mat-paginator {
+  background-color: transparent !important;
+}
+
+mat-table {
+  background-color: transparent !important;
+}
+
+mat-cell {
+  word-wrap: break-word;
+  word-break: break-word;
+}
+
+.error-field-message {
+  font-size: small;
+  color: #ff110e;
+}
+
+.remove-margin-bottom .mat-form-field-wrapper {
+  margin-bottom: -1.25em;
+}
+
+.header {
+  font-size: xx-large;
+}
+
+.mat-mdc-snack-bar-container {
+  &.error-snackbar {
+    --mdc-snackbar-container-color: #ff0504;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+}
+
+.mat-mdc-snack-bar-container {
+  &.success-snackbar {
+    --mdc-snackbar-container-color: #558b2f;
+    --mat-mdc-snack-bar-button-color: #fff;
+    --mdc-snackbar-supporting-text-color: #fff;
+  }
+}
+
+.my-chip {
+  margin: 2px;
+  padding: 9px;
+  float: left;
+  border-radius: 25px;
+  border: none;
+  background-color: #e1e7ed;
+  word-break: break-all;
+}
+
+.my-chip span {
+  vertical-align: middle;
+  display: inline-block;
+}
+
+[class*=' mat-column-'] {
+  flex: none;
+}
+
+.mat-column-checkbox {
+  width: 5%;
+  justify-content: center;
+}
+
+.app-toolbar {
+  position: sticky;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  top: 0; /* Sets the sticky toolbar to be on top */
+  z-index: 1000; /* Ensure that your app's content doesn't overlap the toolbar */
+}

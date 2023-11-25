@@ -1,0 +1,161 @@
+<div class="p-4">
+  <h2>Monthly Reviews {{ month }}</h2>
+  <p *ngIf="visible; else reviewsForm" class="align-text-center mt-5">
+    No more pending reviews
+  </p>
+</div>
+
+<ng-template #reviewsForm>
+  <form *ngIf="formGroup" [formGroup]="formGroup">
+    <mat-vertical-stepper
+      formArrayName="form"
+      #stepper
+      animationDuration="2000"
+      class="elevated-mat-card"
+      (selectionChange)="selectionChange($event)"
+    >
+      <mat-step
+        [completed]="completed[i]"
+        [editable]="editable[i]"
+        [state]="state[i]"
+        [formGroupName]="i"
+        *ngFor="let customerGroup of getControls(); let i = index"
+      >
+        <form
+          [formGroup]="fg"
+          (ngSubmit)="onSubmit(users[i].username, stepper, i)"
+        >
+          <ng-template matStepLabel class="text">
+            {{ users[i].user }}
+            <span
+              *ngIf="users && users.length > 0"
+              class="ml-2"
+              style="font-size: smaller"
+              >{{
+                '(' + users[i].job_name + '-' + users[i].username + ')'
+              }}</span
+            ></ng-template
+          >
+
+          <mat-divider class="mt-4"></mat-divider>
+          <div class="mt-4 mb-2 row">
+            <h2 class="col-md-1">Rate</h2>
+            <span
+              class="col-sm-1"
+              *ngFor="let star of stars; let i = index"
+              (click)="rate(i + 1)"
+            >
+              <ng-container *ngIf="star; else noStar" [matTooltip]="text[i]">
+                ⭐</ng-container
+              >
+              <ng-template #noStar>★</ng-template>
+            </span>
+          </div>
+
+          <mat-divider></mat-divider>
+          <div class="row">
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Positives</mat-label>
+                <mat-chip-grid
+                  #chipGrid
+                  aria-label="Postives selection"
+                  formControlName="good"
+                >
+                  <mat-chip-row
+                    *ngFor="let pos of positives"
+                    (removed)="remove(pos, 'good')"
+                  >
+                    {{ pos }}
+                    <button matChipRemove [attr.aria-label]="'remove ' + pos">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                </mat-chip-grid>
+                <input
+                  #posInput
+                  [formControl]="posCtrl"
+                  [matChipInputFor]="chipGrid"
+                  [matAutocomplete]="auto"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="add($event, 'good')"
+                  [maxlength]="maxLength"
+                />
+                <mat-autocomplete
+                  #auto="matAutocomplete"
+                  (optionSelected)="selected($event, 'good')"
+                >
+                  <mat-option
+                    *ngFor="let pov of filteredPos | async"
+                    [value]="pov"
+                  >
+                    {{ pov }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <app-field-error
+                [control]="good"
+                controlName="Positive qualities"
+              ></app-field-error>
+            </div>
+            <div class="col">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Negatives</mat-label>
+                <mat-chip-grid
+                  #negchipGrid
+                  aria-label="Negatives selection"
+                  formControlName="bad"
+                >
+                  <mat-chip-row
+                    *ngFor="let neg of negatives"
+                    (removed)="remove(neg, 'neg')"
+                  >
+                    {{ neg }}
+                    <button matChipRemove [attr.aria-label]="'remove ' + neg">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+                </mat-chip-grid>
+                <input
+                  #negInput
+                  [formControl]="negCtrl"
+                  [matChipInputFor]="negchipGrid"
+                  [matAutocomplete]="negauto"
+                  [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                  (matChipInputTokenEnd)="add($event, 'bad')"
+                  [maxlength]="maxLength"
+                />
+                <mat-autocomplete
+                  #negauto="matAutocomplete"
+                  (optionSelected)="selected($event, 'bad')"
+                >
+                  <mat-option
+                    *ngFor="let nev of filteredNeg | async"
+                    [value]="nev"
+                  >
+                    {{ nev }}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <app-field-error
+                [control]="bad"
+                controlName="Negative qualities"
+              ></app-field-error>
+            </div>
+          </div>
+
+          <div>
+            <button
+              class="mt-2 mb-3 right"
+              mat-raised-button
+              color="primary"
+              type="submit"
+            >
+              Submit
+            </button>
+          </div>
+        </form>
+      </mat-step>
+    </mat-vertical-stepper>
+  </form>
+</ng-template>

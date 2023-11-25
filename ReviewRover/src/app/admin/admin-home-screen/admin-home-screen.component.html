@@ -1,0 +1,196 @@
+<div class="row">
+  <div class="col">
+    <mat-form-field appearance="outline" class="ml-1 mr-1 right">
+      <mat-label>Review Type</mat-label>
+      <mat-select
+        #reviewType
+        [(value)]="selectedReviewType"
+        (selectionChange)="onTypeSelect(reviewType.value)"
+      >
+        <mat-option *ngFor="let option of reviewTypes" [value]="option">
+          {{ reviewTypesMapping[option] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="right">
+      <mat-label>Team Member</mat-label>
+      <mat-select
+        #selectedMember
+        (selectionChange)="onMemberSelect(selectedMember.value)"
+        [(value)]="memberSelected"
+      >
+        <mat-option *ngFor="let member of teamMembers" [value]="member">
+          {{ member.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="ml-1 mr-1 right">
+      <mat-label>Team</mat-label>
+      <mat-select
+        #selectedTeam
+        (selectionChange)="onTeamSelect(selectedTeam.value)"
+        [(value)]="teamSelected"
+      >
+        <mat-option *ngFor="let team of teams" [value]="team.name">
+          {{ team.name }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <app-month-year-picker
+      class="ml-1 right"
+      (newDateEvent)="getScore($event)"
+    ></app-month-year-picker>
+  </div>
+</div>
+<div class="row">
+  <div class="p-2 col">
+    <mat-card class="mat-card full-width full-height">
+      <mat-card-title class="card-content"
+        >All Teams - {{ selectedDate.year }}</mat-card-title
+      >
+      <mat-card-content class="card-content">
+        <mat-divider></mat-divider>
+        <app-team-yearly-perf-chart
+          [selectedDate]="selectedDate"
+          [reviewType]="selectedReviewType"
+        ></app-team-yearly-perf-chart>
+      </mat-card-content>
+      <mat-card-footer class="card-content">
+        <p>
+          <mat-icon color="primary">info</mat-icon> All teams' performance in
+          {{ selectedDate.year }}
+        </p>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+  <div class="p-2 col">
+    <mat-card class="mat-card full-width full-height">
+      <mat-card-title class="card-content"
+        >{{ teamSelected || 'Individual team' }} -
+        {{ selectedDate.year }}</mat-card-title
+      >
+      <mat-card-content class="card-content">
+        <mat-divider></mat-divider>
+        <app-team-monthly-perf-chart
+          [teamSelected]="teamSelected"
+          [selectedDate]="selectedDate"
+          [reviewType]="selectedReviewType"
+        ></app-team-monthly-perf-chart>
+      </mat-card-content>
+      <mat-card-footer class="card-content">
+        <p>
+          <mat-icon color="primary">info</mat-icon>
+          {{ teamSelected || 'Selected team' }}'{{
+            teamSelected.trim().endsWith('s') ? '' : 's'
+          }}
+          performance in
+          {{ selectedDate.year }}
+        </p>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="p-2 col">
+    <mat-card class="mat-card full-width full-height">
+      <mat-card-title class="card-content"
+        >All Departments - {{ selectedDate.year }}</mat-card-title
+      >
+      <mat-card-content class="card-content">
+        <mat-divider></mat-divider>
+        <app-department-yearly-perf-chart
+          [selectedDate]="selectedDate"
+          [reviewType]="selectedReviewType"
+        ></app-department-yearly-perf-chart>
+      </mat-card-content>
+      <mat-card-footer class="card-content">
+        <p>
+          <mat-icon color="primary">info</mat-icon> All departments' performance
+          in {{ selectedDate.year }}
+        </p>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="p-2 col">
+    <mat-card class="mat-card full-width full-height">
+      <mat-card-title class="card-content mt-2"
+        >{{ teamSelected || 'Individual Team' }} -
+        {{ months[selectedDate.month - 1] }}</mat-card-title
+      >
+      <mat-card-content class="card-content full-height">
+        <mat-divider class="mb-2"></mat-divider>
+        <div class="full-width full-height">
+          <app-team-rate-chart
+            [selectedDate]="selectedDate"
+            [selectedTeam]="teamSelected"
+            [reviewType]="selectedReviewType"
+          ></app-team-rate-chart>
+        </div>
+      </mat-card-content>
+      <mat-card-footer class="card-content">
+        <p>
+          <mat-icon color="primary">info</mat-icon>
+          {{ teamSelected || 'Selected team' }}'{{
+            teamSelected.trim().endsWith('s') ? '' : 's'
+          }}
+          performance in
+          {{ months[selectedDate.month - 1] }}
+        </p>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+  <div class="p-2 col">
+    <mat-card class="mat-card full-width full-height">
+      <mat-card-title class="card-content"
+        >Individual Employee - Monthly</mat-card-title
+      >
+      <mat-card-content class="card-content">
+        <mat-divider></mat-divider>
+        <app-user-rate-chart
+          [selectedDate]="selectedDate"
+          [selectedTeam]="teamSelected"
+          [selectedUser]="memberSelected"
+          [reviewType]="selectedReviewType"
+        ></app-user-rate-chart>
+      </mat-card-content>
+      <mat-card-footer class="card-content">
+        <p>
+          <mat-icon color="primary">info</mat-icon> Selected employee's
+          performance in {{ months[selectedDate.month - 1] }}
+        </p>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="p-2 full-width full-height">
+    <mat-card class="mat-card full-width full-height">
+      <mat-card-title class="card-content"
+        >Top Ranking Employees - {{ months[selectedDate.month - 1] }}
+      </mat-card-title>
+      <mat-card-content class="card-content full-height">
+        <mat-divider></mat-divider>
+        <div class="full-width full-height">
+          <app-top-ranking-users
+            [reviewType]="selectedReviewType"
+            [selectedDate]="selectedDate"
+          ></app-top-ranking-users>
+        </div>
+      </mat-card-content>
+      <mat-card-footer class="card-content">
+        <p>
+          <mat-icon color="primary">info</mat-icon> Best performing employees in
+          {{ months[selectedDate.month - 1] }}
+        </p>
+      </mat-card-footer>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,88 @@
+<div class="p-4">
+  <div class="row">
+    <div class="col"><h1>Designations</h1></div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button
+        mat-flat-button
+        color="primary"
+        type="button"
+        class="mb-2"
+        (click)="openJobModal()"
+      >
+        Add New Designation
+      </button>
+    </div>
+    <div class="col">
+      <mat-form-field *ngIf="jobs" class="right" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input
+          #searchValue
+          matInput
+          type="search"
+          (keyup)="applyFilter($event.target)"
+          (search)="applyFilter(null)"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div [hidden]="!jobs">
+    <mat-paginator
+      [pageSize]="defaultPageSize"
+      [showFirstLastButtons]="true"
+      [hidePageSize]="hidePageSize"
+    ></mat-paginator>
+  </div>
+
+  <!-- Table -->
+  <mat-table [dataSource]="dataSource" matSort [hidden]="!jobs">
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell class="tblHeader" *matHeaderCellDef mat-sort-header>
+        Name
+      </mat-header-cell>
+      <mat-cell *matCellDef="let job"> {{ job.name }} </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell class="tblHeaderCenter" *matHeaderCellDef>
+        Actions
+      </mat-header-cell>
+      <mat-cell *matCellDef="let job">
+        <button
+          mat-icon-button
+          matTooltip="Update"
+          color="primary"
+          type="button"
+          (click)="openJobModal(job)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          matTooltip="Delete"
+          color="warn"
+          type="button"
+          (click)="deleteJob(job)"
+          [disabled]="job.isDeleting"
+        >
+          <span
+            *ngIf="job.isDeleting"
+            class="spinner-border spinner-border-sm"
+          ></span>
+          <span *ngIf="!job.isDeleting"><mat-icon>delete</mat-icon></span>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Headers -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let job; columns: displayedColumns"> </mat-row>
+  </mat-table>
+
+  <p *ngIf="!jobs" class="align-text-center mt-5">No designations found</p>
+</div>

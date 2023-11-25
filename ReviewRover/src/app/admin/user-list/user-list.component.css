@@ -1,0 +1,29 @@
+.mat-column-name {
+  width: 18%;
+}
+
+.mat-column-username {
+  width: 15%;
+}
+
+.mat-column-job_name {
+  width: 20%;
+}
+
+.mat-column-manager_name {
+  width: 15%;
+}
+
+.mat-column-team_name {
+  width: 12%;
+}
+
+.mat-column-is_live {
+  justify-content: center;
+  width: 8%;
+}
+
+.mat-column-actions {
+  justify-content: center;
+  width: 12%;
+}

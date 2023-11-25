@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>{{ description }}</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="formGroup" (ngSubmit)="onSubmit()">
+    <div class="form-row p-2">
+      <div class="full-width">
+        <mat-form-field
+          class="full-width remove-margin-bottom"
+          appearance="outline"
+        >
+          <mat-label>Title</mat-label>
+          <input matInput type="text" formControlName="name" required />
+        </mat-form-field>
+        <app-field-error
+          [control]="name"
+          controlName="Designation"
+        ></app-field-error>
+      </div>
+    </div>
+    <mat-divider></mat-divider>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="right">
+  <div class="form-group">
+    <button
+      mat-flat-button
+      [disabled]="formGroup.invalid"
+      color="primary"
+      class="mr-1 right"
+      (click)="onSubmit()"
+    >
+      <span
+        *ngIf="loading"
+        class="spinner-border spinner-border-sm mr-1"
+      ></span>
+      {{ isAddMode ? 'Add' : 'Update' }}
+    </button>
+
+    <button
+      mat-flat-button
+      type="button"
+      color="warn"
+      class="mr-1 right"
+      (click)="close()"
+    >
+      Cancel
+    </button>
+  </div>
+</mat-dialog-actions>

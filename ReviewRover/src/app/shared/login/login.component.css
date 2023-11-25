@@ -1,0 +1,21 @@
+.main-div {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url('../../../assets/background.svg');
+    background-repeat: no-repeat center center fixed;
+    background-size: cover;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+  }
+  
+  .form-width {
+    width: 60%;
+  }
+  
+  .login-image {
+    content: url('../../../assets/login_image.svg');
+  }
+  

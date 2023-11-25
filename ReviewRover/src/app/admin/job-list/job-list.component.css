@@ -1,0 +1,8 @@
+.mat-column-name {
+  width: 85%;
+}
+
+.mat-column-actions {
+  justify-content: center;
+  width: 15%;
+}

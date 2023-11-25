@@ -1,0 +1,19 @@
+.mat-stepper-vertical {
+    margin-top: 8px;
+  }
+  
+  .mat-mdc-form-field {
+    margin-top: 16px;
+  }
+
+  span {
+   
+    cursor: pointer;
+    line-height: 25px;
+    text-align: center;
+    font-size: x-large;
+  }
+
+  .mat-mdc-form-field {
+    width: 45%  ;
+  }

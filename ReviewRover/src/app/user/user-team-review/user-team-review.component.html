@@ -1,0 +1,26 @@
+<div class="row">
+  <div class="col">
+    <mat-form-field appearance="outline" class="ml-1 mr-1 right">
+      <mat-label>Review Type</mat-label>
+      <mat-select
+        #reviewType
+        [(value)]="selectedType"
+        (selectionChange)="onTypeSelect(reviewType.value)"
+      >
+        <mat-option *ngFor="let option of reviewTypes" [value]="option">
+          {{ reviewTypesMapping[option] }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <app-month-year-picker
+      class="ml-1 right"
+      (newDateEvent)="getScore($event)"
+    ></app-month-year-picker>
+  </div>
+</div>
+<div class="row centered">
+  <div class="p-2 col-8">
+    <h2>Team Performance - {{ selectedTeam }}</h2>
+    <canvas id="teamMonthlyChart"></canvas>
+  </div>
+</div>

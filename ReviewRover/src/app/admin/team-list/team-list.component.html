@@ -1,0 +1,98 @@
+<div class="p-4">
+  <div class="row">
+    <div class="col"><h1>Teams</h1></div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <button
+        mat-flat-button
+        color="primary"
+        type="text"
+        (click)="openTeamModal()"
+        class="mb-2"
+      >
+        Add New Team
+      </button>
+    </div>
+    <div class="col">
+      <mat-form-field *ngIf="teams" class="right" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input
+          #searchValue
+          matInput
+          type="search"
+          (keyup)="applyFilter($event.target)"
+          (search)="applyFilter(null)"
+        />
+      </mat-form-field>
+    </div>
+  </div>
+
+  <!-- Pagination -->
+  <div [hidden]="!teams">
+    <mat-paginator
+      [pageSize]="defaultPageSize"
+      [hidePageSize]="hidePageSize"
+      [showFirstLastButtons]="true"
+    ></mat-paginator>
+  </div>
+
+  <!-- Table -->
+  <mat-table [dataSource]="dataSource" matSort [hidden]="!teams">
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell class="tblHeader" *matHeaderCellDef mat-sort-header>
+        Name
+      </mat-header-cell>
+      <mat-cell *matCellDef="let team"> {{ team.name }} </mat-cell>
+    </ng-container>
+
+    <!-- Department Column -->
+    <ng-container matColumnDef="department_name">
+      <mat-header-cell class="tblHeader" *matHeaderCellDef mat-sort-header>
+        Department
+      </mat-header-cell>
+      <mat-cell *matCellDef="let team"> {{ team.department_name }} </mat-cell>
+    </ng-container>
+
+    <!-- Actions Column -->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell class="tblHeaderCenter" *matHeaderCellDef>
+        Actions
+      </mat-header-cell>
+      <mat-cell *matCellDef="let team">
+        <button
+          mat-icon-button
+          matTooltip="Update"
+          color="primary"
+          type="button"
+          (click)="openTeamModal(team)"
+        >
+          <mat-icon>edit</mat-icon>
+        </button>
+
+        <button
+          mat-icon-button
+          matTooltip="Delete"
+          color="warn"
+          type="button"
+          (click)="deleteTeam(team)"
+          [disabled]="team.isDeleting"
+        >
+          <span
+            *ngIf="team.isDeleting"
+            class="spinner-border spinner-border-sm"
+          ></span>
+          <span *ngIf="!team.isDeleting"><mat-icon>delete</mat-icon></span>
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!-- Headers -->
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let job; columns: displayedColumns"> </mat-row>
+  </mat-table>
+
+  <!-- No Teams -->
+  <p *ngIf="!teams" class="align-text-center mt-5">No teams found</p>
+</div>

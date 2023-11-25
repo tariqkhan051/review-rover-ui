@@ -1,0 +1,17 @@
+.mat-column-rank {
+  justify-content: center;
+  width: 10%;
+}
+
+.mat-column-name {
+  width: 30%;
+}
+
+.mat-column-team_name {
+  width: 30%;
+}
+
+.mat-column-score {
+  justify-content: center;
+  width: 30%;
+}

@@ -1,0 +1,59 @@
+<div class="p-4">
+  <div class="row">
+    <div class="pieChart">
+      <canvas id="userRateChart"></canvas>
+    </div>
+  </div>
+
+  <div class="row" class="full-width">
+    <div class="p-4" class="full-width">
+      <div>
+        <br />
+        <mat-label mat-subheader>Obtained Score: {{ userScore }}%</mat-label>
+        <br />
+
+        <div class="row">
+          <div class="col">
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Positive reviews </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div style="max-height: 300px; overflow-y: scroll">
+                <div *ngFor="let item of positivesArr" class="my-chip">
+                  <span>{{ item }}</span>
+                  <span
+                    *ngIf="positives[item] > 1"
+                    style="font-size: smaller"
+                    class="ml-2 right text-secondary"
+                  >
+                    {{ positives[item] }}
+                  </span>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </div>
+
+          <div class="col">
+            <mat-expansion-panel hideToggle>
+              <mat-expansion-panel-header>
+                <mat-panel-title> Negative reviews </mat-panel-title>
+              </mat-expansion-panel-header>
+              <div style="max-height: 300px; overflow-y: scroll">
+                <div *ngFor="let item of negativesArr" class="my-chip">
+                  <span>{{ item }}</span>
+                  <span
+                    *ngIf="negatives[item] > 1"
+                    style="font-size: smaller"
+                    class="ml-2 right text-secondary"
+                  >
+                    {{ negatives[item] }}
+                  </span>
+                </div>
+              </div>
+            </mat-expansion-panel>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

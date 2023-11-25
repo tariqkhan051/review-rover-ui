@@ -1,0 +1,77 @@
+<div class="p-4">
+  <div class="row">
+    <h2 class="col-4">Self Performance</h2>
+    <div class="col-8">
+      <mat-form-field appearance="outline" class="ml-1 mr-1 right">
+        <mat-label>Review Type</mat-label>
+        <mat-select
+          #reviewType
+          [(value)]="selectedType"
+          (selectionChange)="onTypeSelect(reviewType.value)"
+        >
+          <mat-option *ngFor="let option of reviewTypes" [value]="option">
+            {{ reviewTypesMapping[option] }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <div class="pieChart">
+        <canvas id="ratingChart"></canvas>
+      </div>
+    </div>
+    <div class="col-4">
+      <div>
+        <br />
+        <mat-label mat-subheader>{{ selectedUser }}'s Reviews</mat-label>
+        <br />
+        <mat-list class="mat-list">
+          <mat-expansion-panel hideToggle [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title> Positive reviews </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngFor="let item of positivesArr" class="my-chip">
+              <span>{{ item }}</span>
+              <span
+                *ngIf="positives[item] > 1"
+                style="font-size: smaller"
+                class="ml-2 right text-secondary"
+              >
+                {{ positives[item] }}
+              </span>
+            </div>
+          </mat-expansion-panel>
+
+          <mat-divider style="margin-top: 2%"></mat-divider>
+
+          <mat-expansion-panel hideToggle [expanded]="true">
+            <mat-expansion-panel-header>
+              <mat-panel-title> Negative reviews </mat-panel-title>
+            </mat-expansion-panel-header>
+
+            <div *ngFor="let item of negativesArr" class="my-chip">
+              <span>{{ item }}</span>
+              <span
+                *ngIf="negatives[item] > 1"
+                style="font-size: smaller"
+                class="ml-2 right text-secondary"
+              >
+                {{ negatives[item] }}
+              </span>
+            </div>
+          </mat-expansion-panel>
+        </mat-list>
+      </div>
+    </div>
+    <!-- <div class="col-3 p-4">
+      <div>
+        <app-month-year-picker
+          class="ml-1 right"
+          (newDateEvent)="getScore($event)"
+        ></app-month-year-picker>
+      </div>
+    </div> -->
+  </div>
+</div>

@@ -1,0 +1,14 @@
+.not-found-image {
+  content: url('../../../assets/page_not_found.svg');
+  height: 500px;
+  width: 500px;
+}
+
+.image-container {
+  display: flex;
+  justify-content: center;
+}
+
+.text-container {
+  text-align: center;
+}

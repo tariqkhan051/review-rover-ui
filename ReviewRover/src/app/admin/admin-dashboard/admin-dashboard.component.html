@@ -1,0 +1,83 @@
+<mat-toolbar color="primary" class="app-toolbar">
+  <button
+    mat-icon-button
+    aria-label="Menu"
+    (click)="drawer.toggle()"
+    class="mr-1"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <span>{{ title }}</span>
+  <span class="spacer"></span>
+  <span style="font-size: medium">{{ username }}</span>
+  <span class="right ml-1">
+    <button
+      mat-mini-fab
+      [matMenuTriggerFor]="menu"
+      color="warn"
+      style="font-size: medium; vertical-align: middle"
+      class="text-center"
+    >
+      <span>
+        {{ initials }}
+      </span>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="./login" (click)="logout()">
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+  </span>
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #drawer class="menu-sidenav" mode="side" fixedInViewport="true">
+    <mat-nav-list class="sidenav-list">
+      <a mat-list-item routerLink="./home" [routerLinkActive]="['is-active']">
+        <mat-icon color="primary" class="nav-icon">assessment</mat-icon>
+        <span>Dashboard</span>
+      </a>
+      <a mat-list-item routerLink="./users" [routerLinkActive]="['is-active']">
+        <mat-icon color="primary" class="nav-icon">person</mat-icon>
+        <span>Manage Users</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="./departments"
+        [routerLinkActive]="['is-active']"
+      >
+        <mat-icon color="primary" class="nav-icon">layers</mat-icon>
+        <span>Manage Departments</span>
+      </a>
+      <a mat-list-item routerLink="./teams" [routerLinkActive]="['is-active']">
+        <mat-icon color="primary" class="nav-icon">group</mat-icon>
+        <span>Manage Teams</span>
+      </a>
+      <a mat-list-item routerLink="./jobs" [routerLinkActive]="['is-active']">
+        <mat-icon color="primary" class="nav-icon">assignment_ind</mat-icon>
+        <span>Manage Designations</span>
+      </a>
+      <a
+        mat-list-item
+        routerLink="./manageReviews"
+        [routerLinkActive]="['is-active']"
+        (click)="pendingApprovalCount = 0"
+      >
+        <mat-icon color="primary" class="nav-icon">comment</mat-icon>
+        <span>Pending Reviews</span>
+        <mat-icon
+          *ngIf="pendingApprovalCount > 0"
+          color="primary"
+          class="nav-icon right"
+          style="font-size: small; vertical-align: middle; padding-top: 3%"
+          >fiber_manual_record
+        </mat-icon>
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+  <div>
+    <div class="p-4 force-full-height full-height">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</mat-sidenav-container>

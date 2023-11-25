@@ -1,0 +1,72 @@
+<div class="col mb-2">
+  <mat-form-field
+    *ngIf="topRankedUsers"
+    class="right mt-2"
+    appearance="outline"
+  >
+    <mat-label>Search</mat-label>
+    <input
+      #searchValue
+      matInput
+      type="search"
+      (keyup)="applyFilter($event.target)"
+      (search)="applyFilter(null)"
+    />
+  </mat-form-field>
+</div>
+
+<!-- Pagination -->
+<div [hidden]="!topRankedUsers">
+  <mat-paginator
+    [pageSize]="defaultPageSize"
+    [showFirstLastButtons]="true"
+    [hidePageSize]="hidePageSize"
+  ></mat-paginator>
+</div>
+
+<!-- Table -->
+<mat-table
+  [dataSource]="dataSource"
+  matSort
+  [hidden]="!topRankedUsers"
+  class="mt-5"
+>
+  <!-- Rank Column -->
+  <ng-container matColumnDef="rank">
+    <mat-header-cell class="tblHeaderCenter" *matHeaderCellDef mat-sort-header>
+      Rank
+    </mat-header-cell>
+    <mat-cell *matCellDef="let user"> {{ user.rank }} </mat-cell>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="name">
+    <mat-header-cell class="tblHeader" *matHeaderCellDef mat-sort-header>
+      Name
+    </mat-header-cell>
+    <mat-cell *matCellDef="let user"> {{ user.name }} </mat-cell>
+  </ng-container>
+
+  <!-- Team Column -->
+  <ng-container matColumnDef="team_name">
+    <mat-header-cell class="tblHeader" *matHeaderCellDef mat-sort-header>
+      Team Name
+    </mat-header-cell>
+    <mat-cell *matCellDef="let user"> {{ user.team_name }} </mat-cell>
+  </ng-container>
+
+  <!-- Score Column -->
+  <ng-container matColumnDef="score">
+    <mat-header-cell class="tblHeaderCenter" *matHeaderCellDef mat-sort-header>
+      Score
+    </mat-header-cell>
+    <mat-cell *matCellDef="let user"> {{ user.score }} </mat-cell>
+  </ng-container>
+
+  <!-- Headers -->
+  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+  <mat-row *matRowDef="let user; columns: displayedColumns"> </mat-row>
+</mat-table>
+
+<!-- No Users -->
+<p *ngIf="!topRankedUsers" class="align-text-center mt-5">No users found</p>

@@ -1,0 +1,42 @@
+.mat-column-user {
+  font-size: small;
+  width: 12%;
+}
+
+.mat-column-team_name {
+  font-size: small;
+  width: 12%;
+}
+
+.mat-column-month {
+  justify-content: center;
+  font-size: small;
+  width: 7%;
+}
+
+.mat-column-year {
+  justify-content: center;
+  font-size: small;
+  width: 8%;
+}
+
+.mat-column-created_on {
+  justify-content: center;
+  font-size: small;
+  width: 12%;
+}
+
+.mat-column-title {
+  font-size: small;
+  width: 10%;
+}
+
+.mat-column-description {
+  font-size: small;
+  flex: auto;
+}
+
+.mat-column-actions {
+  justify-content: center;
+  width: 11%;
+}
